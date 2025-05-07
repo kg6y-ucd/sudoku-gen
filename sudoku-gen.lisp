@@ -250,7 +250,7 @@ fact {
 (compile 'make-alloy-run-cmd)
 
 (defun make-generator (&optional constraints)
-  ;; constraintsは((row col val) ....)
+  "constraints are a list like ((row col val) ....)."
   (let* ((world (jstatic "parseEverything_fromString"
 			 "edu.mit.csail.sdg.alloy4compiler.parser.CompUtil"
 			 java:+null+
