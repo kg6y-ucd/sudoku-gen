@@ -41,6 +41,7 @@ puzzle=100 q=0 TTTT interpreter join worker04
 462163002 cons cells
 ```
 #### 16x16
+(WIP)
 ### error-output format
 `*error-output*` logs the processing status in the following format. The first field represents the puzzle number being processed, the second field indicates the queue length, the third field is a string representing the state of each worker thread using a single character (W = WAITING, R = RUNNABLE, B = BLOCKED, T = TERMINATED), the fourth field is the thread name, and the remaining fields contain the messages output by that thread.
 
