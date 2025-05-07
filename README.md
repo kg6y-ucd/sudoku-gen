@@ -34,6 +34,13 @@ The main thread generates a number of worker threads equal to the number of core
 
 There are three parameters: `*easy*`, `*threshold*`, and `*n*`. `*easy*` determines whether only simple puzzles are generated, while `*threshold*` and `*n*` are used when selecting blank cells randomly. For more details, refer to the comments in the source code."
 ### performance
+#### 9x9
+```
+puzzle=100 q=0 TTTT interpreter join worker04
+117.978 seconds real time
+462163002 cons cells
+```
+#### 16x16
 ### error-output format
 `*error-output*` logs the processing status in the following format. The first field represents the puzzle number being processed, the second field indicates the queue length, the third field is a string representing the state of each worker thread using a single character (W = WAITING, R = RUNNABLE, B = BLOCKED, T = TERMINATED), the fourth field is the thread name, and the remaining fields contain the messages output by that thread.
 
