@@ -17,3 +17,6 @@ java -cp alloy4.2_2015-02-22.jar;abcl.jar org.armedbear.lisp.Main --batch --load
 ```
 ## Notes
 ### performance
+### error-output format
+### standard-output format
+### search parameters
