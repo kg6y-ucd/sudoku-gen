@@ -8,10 +8,20 @@ The prerequisites are JRE (Java Runtime Environment), alloy4.2_2015-02-22.jar do
 Place these two JAR files in the same directory as sudoku-gen.lisp.
 ## Program Execution Command
 The following command generates 100 9x9 Sudoku puzzles. The results are output to a file named sudoku-gen-output-yyyy-mm-dd-hh-mi-ss.txt.
+### Windows
 ```
 java -cp alloy4.2_2015-02-22.jar;abcl.jar org.armedbear.lisp.Main --batch --load sudoku-gen.lisp --eval "(in-package :sudoku-gen)" --eval "(sudoku-gen 100)"
 ```
+### Linux
+```
+java -cp alloy4.2_2015-02-22.jar:abcl.jar org.armedbear.lisp.Main --batch --load sudoku-gen.lisp --eval "(in-package :sudoku-gen)" --eval "(sudoku-gen 100)"
+```
 For 16x16, use the following command. The results are output to a file named sudoku-gen-16x16-output-yyyy-mm-dd-hh-mi-ss.txt.
+### Windows
+```
+java -cp alloy4.2_2015-02-22.jar;abcl.jar org.armedbear.lisp.Main --batch --load sudoku-gen.lisp --eval "(in-package :sudoku-gen)" --eval "(sudoku-gen-16x16 100)"
+```
+### Linux
 ```
 java -cp alloy4.2_2015-02-22.jar;abcl.jar org.armedbear.lisp.Main --batch --load sudoku-gen.lisp --eval "(in-package :sudoku-gen)" --eval "(sudoku-gen-16x16 100)"
 ```
