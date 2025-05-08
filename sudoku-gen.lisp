@@ -120,9 +120,11 @@
 
 (compile 'available-processors)
 
-(defun mailbox-queue-size (mailbox)
+(defun mailbox-queue-size (mailbox &optional non-nil)
   (synchronized-on mailbox
-		   (length (threads::mailbox-queue mailbox))))
+		   (if non-nil
+		       (count-if #'identity (threads::mailbox-queue mailbox))
+		       (length (threads::mailbox-queue mailbox)))))
 
 (compile 'mailbox-queue-size)
 
@@ -447,9 +449,10 @@ fact {
 (defun print-queue-and-thread-status (&optional message)
   (with-mutex (*mio*)
     (format *error-output*
-	    "~&puzzle=~a q=~a ~{~a~}"
+	    "~&~a puzzle=~a q=~a ~{~a~}"
+	    (tstmp-for-log)
 	    *puzzle-no*
-	    (mailbox-queue-size *mailbox*)
+	    (mailbox-queue-size *mailbox* t)
 	    (mapcar (lambda (thread)
 		      (char (thread-state thread) 0))
 		    *workers*))
@@ -775,3 +778,8 @@ fact {
 
 (compile 'tstmp)
 
+(defun tstmp-for-log ()
+  (multiple-value-bind (s m h d mo y) (get-decoded-time)
+    (format nil "[~4,'0d-~2,'0d-~2,'0d][~2,'0d:~2,'0d:~2,'0d]" y mo d h m s)))
+
+(compile 'tstmp-for-log)
