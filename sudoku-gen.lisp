@@ -66,6 +66,13 @@
 
 (defun make-sudoku-aux (n)
   (setf *workers* (make-worker-threads (* (available-processors) 1)))
+  (format *error-output* "~&~a ~a start (*solution-generator*=~a *easy*=~a *threshold*=~a *n*=~a)"
+	  (tstmp-for-log)
+	  (if *16x16-mode* "16x16" "9x9")
+	  *solution-generator*
+	  *easy*
+	  *threshold*
+	  *n*)
   (let* ((max-queue-size (* (length *workers*) 2)))
     (unless *solution-generator*
       (setf *solution-generator* (make-generator *initial-constraints*)))
@@ -472,22 +479,18 @@ fact {
 	      (let* ((num-empty-cells (floor (+ ubound lbound) 2))
 		     (constraints (nthcdr num-empty-cells init-constraints)))
 		(when *verbose*
-		  (print-queue-and-thread-status (format nil "checking ~a" num-empty-cells)))
+		  (print-queue-and-thread-status (format nil "checking ~a ~a ~a" lbound num-empty-cells ubound)))
 		(when (<= ubound *threshold*)
 		  (return-from inner))
 		(let ((b3 (not (easy-constraints-check constraints))))
 		  (if b3
 		      (setf ubound num-empty-cells)
-		      (progn
-			(let* ((inspector (make-generator constraints))
-			       (b1 (funcall inspector))
-			       (b2 (funcall inspector)))
-			  (if (not (uniq-constraints constraints))
-			      (setf ubound num-empty-cells)
-			      (progn
-				(setf lbound num-empty-cells)
-				(when (= (- ubound lbound) 1)
-				  (return-from outer (car (make-it-harder (list constraints))))))))))))))))))
+		      (if (not (uniq-constraints constraints))
+			  (setf ubound num-empty-cells)
+			  (progn
+			    (setf lbound num-empty-cells)
+			    (when (= (- ubound lbound) 1)
+			      (return-from outer (car (make-it-harder (list constraints))))))))))))))))
 
 (compile 'make-puzzle)
 
