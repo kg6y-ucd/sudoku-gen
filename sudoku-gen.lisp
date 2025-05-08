@@ -10,10 +10,10 @@
 
 (in-package :sudoku-gen)
 
-(defparameter *verbose* t)
+(defparameter *verbose* nil)
 (defparameter *workers* nil)
 (defvar *solution-generator* nil)
-(defvar *16x16-mode* t)
+(defvar *16x16-mode* nil)
 (defparameter *puzzle-no* nil)
 (defparameter *mailbox* (make-mailbox))
 (defparameter *mio* (make-mutex) "Mutex for inter-thread mutual exclusion of *standard-output* and *error-output*.")
