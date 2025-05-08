@@ -10,9 +10,10 @@
 
 (in-package :sudoku-gen)
 
+(defparameter *verbose* t)
 (defparameter *workers* nil)
 (defvar *solution-generator* nil)
-(defvar *16x16-mode* nil)
+(defvar *16x16-mode* t)
 (defparameter *puzzle-no* nil)
 (defparameter *mailbox* (make-mailbox))
 (defparameter *mio* (make-mutex) "Mutex for inter-thread mutual exclusion of *standard-output* and *error-output*.")
@@ -51,12 +52,19 @@
 	(*threshold* 128)
 	(*easy* t)
 	(*n* 3))
-    (make-sudoku n)))
+    (make-sudoku-aux n)))
+
+(compile 'make-sudoku-16x16)
 
 (defun make-sudoku (n)
   (when *16x16-mode*
     (setf *16x16-mode* nil)
     (clear-generator))
+  (make-sudoku-aux n))
+
+(compile 'make-sudoku)
+
+(defun make-sudoku-aux (n)
   (setf *workers* (make-worker-threads (* (available-processors) 1)))
   (let* ((max-queue-size (* (length *workers*) 2)))
     (unless *solution-generator*
@@ -81,16 +89,14 @@
 		   *groups*
 		   *threshold*
 		   *easy*
-		   *n*
-		   ))
+		   *n*))
 	(values (list *standard-output*
 		      *error-output*
 		      *world-src*
 		      *groups*
 		      *threshold*
 		      *easy*
-		      *n*
-		      )))
+		      *n*)))
     (loop for i from 1 to n collect
 	 (make-thread
 	  (lambda ()
@@ -462,7 +468,8 @@ fact {
 	   (loop
 	      (let* ((num-empty-cells (floor (+ ubound lbound) 2))
 		     (constraints (nthcdr num-empty-cells init-constraints)))
-		;; (print-queue-and-thread-status (format nil "checking ~a" num-empty-cells))
+		(when *verbose*
+		  (print-queue-and-thread-status (format nil "checking ~a" num-empty-cells)))
 		(when (<= ubound *threshold*)
 		  (return-from inner))
 		(let ((b3 (not (easy-constraints-check constraints))))
@@ -497,10 +504,11 @@ fact {
 (compile 'encode-board)
 
 (defun make-it-harder (constraints-list)
-  ;; (print-queue-and-thread-status
-  ;;  (format nil "searching ~a"
-  ;; 	   (- (if *16x16-mode* 256 81)
-  ;; 	      (length (car constraints-list)))))
+  (when *verbose*
+    (print-queue-and-thread-status
+     (format nil "searching ~a"
+	     (- (if *16x16-mode* 256 81)
+		(length (car constraints-list))))))
   (let ((new-constraints-list
 	 (take-n-filter *n*
 			(lambda (constraints)
@@ -533,6 +541,7 @@ fact {
 
 (defun easy-constraints (constraints)
   "Determine whether a Sudoku puzzle can be solved easily using simple memo-taking."
+  ;; (print-queue-and-thread-status (format nil "*16x16-mode*=~a (length (e....)=~a" *16x16-mode* (length (extend-constraints constraints))))
   (= (if *16x16-mode* 256 81)
      (length (extend-constraints constraints))))
 
