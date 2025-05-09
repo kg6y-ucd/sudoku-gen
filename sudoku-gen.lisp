@@ -87,7 +87,7 @@
       (thread-join thread)
       (print-queue-and-thread-status (format nil "join ~a" (thread-name thread))))))
 
-(compile 'make-sudoku)
+(compile 'make-sudoku-aux)
 
 (defun make-worker-threads (n)
   (let ((symbols '(*standard-output*
