@@ -28,7 +28,7 @@ java -cp alloy4.2_2015-02-22.jar;abcl.jar org.armedbear.lisp.Main --batch --load
 ```
 ### Linux
 ```
-java -cp alloy4.2_2015-02-22.jar;abcl.jar org.armedbear.lisp.Main --batch --load sudoku-gen.lisp --eval "(in-package :sudoku-gen)" --eval "(sudoku-gen-16x16 100)"
+java -cp alloy4.2_2015-02-22.jar:abcl.jar org.armedbear.lisp.Main --batch --load sudoku-gen.lisp --eval "(in-package :sudoku-gen)" --eval "(sudoku-gen-16x16 100)"
 ```
 ## Notes
 ### Processing Overview
