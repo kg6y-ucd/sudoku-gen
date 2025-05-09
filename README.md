@@ -2,9 +2,13 @@
 A program that generates 9x9 or 16x16 Sudoku puzzles.
 
 This program generates Sudoku puzzles with unique solutions.
+
 Using the same generation logic as this program, we created data for TIC-80's [SUDOKU8000](https://tic80.com/play?cart=4203)
 ## Prerequisites
-The prerequisites are JRE (Java Runtime Environment), alloy4.2_2015-02-22.jar downloaded from https://alloytools.org/download.html, and abcl.jar included in abcl-bin-1.9.2, which can be downloaded from https://armedbear.common-lisp.dev.
+The prerequisites are as follows.
+- JRE (Java Runtime Environment)
+- alloy4.2_2015-02-22.jar downloaded from https://alloytools.org/download.html
+- abcl.jar included in abcl-bin-1.9.2, which can be downloaded from https://armedbear.common-lisp.dev.
 
 Place these two JAR files in the same directory as sudoku-gen.lisp.
 ## Program Execution Command
