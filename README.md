@@ -3,7 +3,7 @@ A program that generates 9x9 or 16x16 Sudoku puzzles.
 
 This program generates Sudoku puzzles with unique solutions.
 
-Using the same generation logic as this program, we created data for TIC-80's [SUDOKU8000](https://tic80.com/play?cart=4203)
+Using the same generation logic as this program, we created data for TIC-80's [SUDOKU8000](https://tic80.com/play?cart=4203) and [SUDOKU16X16](https://tic80.com/play?cart=4263)
 ## Prerequisites
 The prerequisites are as follows.
 - JRE (Java Runtime Environment)
