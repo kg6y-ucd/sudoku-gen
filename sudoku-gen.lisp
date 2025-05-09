@@ -90,14 +90,16 @@
 (compile 'make-sudoku-aux)
 
 (defun make-worker-threads (n)
-  (let ((symbols '(*standard-output*
+  (let ((symbols '(*verbose*
+		   *standard-output*
 		   *error-output*
 		   *world-src*
 		   *groups*
 		   *threshold*
 		   *easy*
 		   *n*))
-	(values (list *standard-output*
+	(values (list *verbose*
+		      *standard-output*
 		      *error-output*
 		      *world-src*
 		      *groups*
