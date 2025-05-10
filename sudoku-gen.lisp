@@ -73,6 +73,7 @@
 	  *easy*
 	  *threshold*
 	  *n*)
+  (finish-output *error-output*)
   (let* ((max-queue-size (* (length *workers*) 2)))
     (unless *solution-generator*
       (setf *solution-generator* (make-generator *initial-constraints*)))
@@ -466,7 +467,8 @@ fact {
 		      (char (thread-state thread) 0))
 		    *workers*))
     (when message
-      (format *error-output* " ~a ~a" (thread-name (threads:current-thread)) message))))
+      (format *error-output* " ~a ~a" (thread-name (threads:current-thread)) message))
+    (finish-output *error-output*)))
 
 (compile 'print-queue-and-thread-status)
 
