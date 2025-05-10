@@ -10,6 +10,9 @@
 
 (in-package :sudoku-gen)
 
+(defparameter *world-src* nil)
+(defparameter *groups* nil)
+(defparameter *initial-constraints* nil)
 (defparameter *verbose* nil)
 (defparameter *workers* nil)
 (defvar *solution-generator* nil)
@@ -54,7 +57,7 @@
 	(*n* 3))
     (make-sudoku-aux n)))
 
-;;(compile 'make-sudoku-16x16)
+(compile 'make-sudoku-16x16)
 
 (defun make-sudoku (n)
   (when *16x16-mode*
